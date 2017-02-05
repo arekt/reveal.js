@@ -35,10 +35,12 @@
     <script>
       knApp = {slides: ko.observableArray()}
       var client = new Faye.Client('http://vbox:8123/faye');
-      client.subscribe('/messages', function(message) {
-        console.log('Got a message: ' + message.text);
-      });
       client.subscribe('/slides', function(data) {
+        marked.setOptions({
+          highlight: function (code) {
+            return hljs.highlightAuto(code).value;
+          }
+        });
         console.log(data.collection);
         knApp.slides.destroyAll()
         data.collection.forEach(function(slide) {
