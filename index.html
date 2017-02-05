@@ -30,18 +30,22 @@
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
-		<script src="js/knockout-3.4.1.js"></script>
+    <script src="js/knockout-3.4.1.js"></script>
+    <script src="js/faye-browser-min.js"></script>
     <script>
-      knApp = {slides: ko.observableArray([])}
-      knApp.slides.push(`
-          <h2 id="hello">Hello</h2>
-<p>I&#39;m ruby programmer...</p>
-<pre><code>class B
-  def a
-    puts &quot;Hello World&quot;
-  end
-end
-</code></pre>`)
+      knApp = {slides: ko.observableArray()}
+      var client = new Faye.Client('http://vbox:8123/faye');
+      client.subscribe('/messages', function(message) {
+        console.log('Got a message: ' + message.text);
+      });
+      client.subscribe('/slides', function(data) {
+        console.log(data.collection);
+        knApp.slides.destroyAll()
+        data.collection.forEach(function(slide) {
+          knApp.slides.push(marked.parse(slide))
+        });
+        Reveal.slide(0);
+      })
       ko.applyBindings(knApp)
     </script>
     <script>

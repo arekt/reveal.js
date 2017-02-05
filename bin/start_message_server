@@ -1,0 +1,3 @@
+#!/bin/bash
+pkill -f "puma bin/message_server"
+nohup puma bin/message_server.ru --port 8123 &
