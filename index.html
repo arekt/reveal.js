@@ -23,16 +23,19 @@
 	</head>
 	<body>
 		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+			<div class="slides" data-bind="foreach: slides">
+        <section data-bind="html: $data"></section>
 			</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
-
-		<script>
+		<script src="js/knockout-3.4.1.js"></script>
+    <script>
+      knApp = {slides: ko.observableArray([])}
+      ko.applyBindings(knApp)
+    </script>
+    <script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				history: true,
