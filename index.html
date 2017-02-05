@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="css/theme/white.css">
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="lib/css/solarized-light.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -33,6 +33,15 @@
 		<script src="js/knockout-3.4.1.js"></script>
     <script>
       knApp = {slides: ko.observableArray([])}
+      knApp.slides.push(`
+          <h2 id="hello">Hello</h2>
+<p>I&#39;m ruby programmer...</p>
+<pre><code>class B
+  def a
+    puts &quot;Hello World&quot;
+  end
+end
+</code></pre>`)
       ko.applyBindings(knApp)
     </script>
     <script>
